@@ -65,7 +65,16 @@
   <ItemGroup>
     <Content Include="Scripts\ViewResponse.js" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="JSRazorViewEngine.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="lib\net40\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)JSRazorViewEngine\lib\net40\$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
