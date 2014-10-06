@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Razor Js WebTester";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<br />
+
+<table>
+  <tr>
+    <td>
+      Model:
+    </td>
+    <td>
+      <textarea style="width:395px;height:70px" id="model">
+{ ID: 'Tester' }
+</textarea>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <input type="button" value="Execute Razor" id="executeBtn" />
+    </td>
+  </tr>
+</table>
+
+<br />
+
+<div style="width:1100px;height:600px">
+  <div style="width:40%;height:100%;float:left;">
+    <textarea style="width:100%;height:100%" id="razorText"></textarea>
+  </div>
+  <div style="width:59%;height:100%;float:right;border:1px solid;" >
+    <div style="height:3%;width:100%;border:1px solid;" id="timeText"></div>
+    <div id="razorResult" style="width:100%;height:89%;"></div>
+  </div>
+</div>
+<div style="clear:both;"></div><br />
+
+
+<script type="text/javascript">
+  jQuery(function () {
+    jQuery("#executeBtn").click(function () {
+      var razorBox = jQuery("#razorResult");
+      var date = new Date();
+      $.post("WebTester/GetRazorResult/", { model: jQuery("#model").val(), razorTemplate: jQuery("#razorText").val() }, function (data) {
+        razorBox.html(data);
+        jQuery("#timeText").html("Completed in " + ((new Date().getTime() - date.getTime()) / 1000.0) + "millisecond(s)");
+      });
+    });
+  });
+</script>
